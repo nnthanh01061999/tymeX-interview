@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "title": "TymeX Marketplace",
+    "description": "TymeX Marketplace",
+    "keywords": "TymeX Marketplace",
+    "author": "nnthanh01061999@gmail.com",
+    "appName": "TymeX Marketplace",
+    "appType": "Marketplace",
+    "appCategory": "Marketplace"
+  },
+  "empty": {
+    "title": "No items found",
+    "description": "Try adjusting your search or filter criteria.",
+    "actionLabel": "Reset filters"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "An error occurred while fetching data. Please try again.",
+    "actionLabel": "Try again"
+  }
+}

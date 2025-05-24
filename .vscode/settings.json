@@ -1,0 +1,30 @@
+{
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.tabWidth": 2,
+  "prettier.trailingComma": "all", // none
+  "prettier.arrowParens": "always",
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "javascript.suggest.autoImports": true,
+  "typescript.suggest.autoImports": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": false, // format code on paste
+    "editor.formatOnType": true, // format code as you type
+    "editor.formatOnSave": true, // format code when you hit save
+    "editor.detectIndentation": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.sortMembers": "explicit"
+  },
+  "i18n-ally.localesPaths": ["messages"],
+  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.displayLanguage": "en",
+  "i18n-ally.keystyle": "flat",
+  "i18n-ally.namespace": true,
+  "i18n-ally.preferredDelimiter": "_",
+  "codium.codeCompletion.enable": false
+}
