@@ -1,4 +1,4 @@
-import { RequestConfig, RequestType } from "@/helpers/fetch/type"
+import { RequestConfig } from "@/helpers/fetch/type"
 
 import product from "./product"
 
@@ -20,8 +20,8 @@ declare global {
 
   type ApiKeyValue<T extends ApiKey = ApiKey> = (typeof apiConfig)[T]
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type ExtractRouteParams<T extends string> =
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     T extends `${infer _Start}:${infer Param}/${infer Rest}`
       ? { [K in Param | keyof ExtractRouteParams<Rest>]: string }
       : // eslint-disable-next-line @typescript-eslint/no-unused-vars

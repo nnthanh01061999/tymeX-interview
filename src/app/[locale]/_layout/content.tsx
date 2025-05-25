@@ -9,9 +9,8 @@ export default function Content({ className }: { className?: string }) {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Filter Column */}
         <div className="md:col-span-1">
-          <FilterPanel onFilterChange={() => {}} categories={[]} />
+          <FilterPanel />
         </div>
-
         <SearchResult />
       </div>
     </section>

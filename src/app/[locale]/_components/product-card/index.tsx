@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import { IProduct } from "@/types"
 import { Heart } from "lucide-react"
 import Image from "next/image"
@@ -37,7 +38,6 @@ export default function ProductCard({
   return (
     <Card className="h-full flex flex-col overflow-hidden">
       <div className="relative h-48">
-        {/* Using div instead of Image for placeholders */}
         <div className="relative size-full">
           <Image
             src={`https://picsum.photos/200/300?random=${item.imageId}`}
@@ -67,10 +67,10 @@ export default function ProductCard({
           className="p-0 size-4">
           <Heart
             size={18}
-            className={`${
-              isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"
-            } 
-                      ${isLoading ? "opacity-50" : ""}`}
+            className={cn([
+              isFavorite ? "fill-red-500 text-red-500" : "text-gray-400",
+              isLoading ? "opacity-50" : ""
+            ])}
           />
         </Button>
       </CardFooter>

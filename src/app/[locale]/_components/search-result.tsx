@@ -1,28 +1,31 @@
 "use client"
 
 import CategoryToggle from "@/app/[locale]/_components/category-toggle"
-import Product from "@/app/[locale]/_components/product-card/product-card"
+import Product from "@/app/[locale]/_components/product-card"
 import ProductSkeleton from "@/app/[locale]/_components/product-card/product-card-placeholder"
-import useProducts from "@/app/[locale]/hooks/use-marketplace-items"
+import useProducts from "@/app/[locale]/hooks/use-search-products"
 import EmptyIndicator from "@/components/indicators/empty"
 import ErrorIndicator from "@/components/indicators/error"
 import { Button } from "@/components/ui/button"
-import { TProductParams } from "@/types/model/product"
-import { useParams } from "next/navigation"
+import useFilterQueryParams from "@/hooks/use-filter-query-params"
 
 function MarketplaceResult() {
-  const params = useParams<TProductParams>()
-  const { _page = 1 } = params
+  const updateQuery = useFilterQueryParams({
+    scrollTop: false
+  })
+  const { items, loading, isLoadingMore, error, fetchNextPage } = useProducts()
 
-  const { items, loading, error, refetch, fetchNextPage } = useProducts()
+  const handleReset = () => {
+    updateQuery({ data: {} })
+  }
 
   const renderContent = () => {
     if (error) {
-      return <ErrorIndicator onRetry={() => refetch()} />
+      return <ErrorIndicator onRetry={handleReset} />
     }
 
     if (!loading && items && items.length === 0) {
-      return <EmptyIndicator onAction={() => refetch()} />
+      return <EmptyIndicator onAction={handleReset} />
     }
 
     return (
@@ -37,14 +40,16 @@ function MarketplaceResult() {
 
           {/* Loading skeletons */}
           {loading &&
-            _page === 1 &&
             Array.from({ length: 8 }).map((_, index) => (
               <ProductSkeleton key={`skeleton-${index}`} />
             ))}
         </div>
         <div className="flex justify-center mt-4">
-          <Button variant="outline" onClick={() => fetchNextPage()}>
-            Load more
+          <Button
+            loading={isLoadingMore}
+            variant="outline"
+            onClick={() => fetchNextPage()}>
+            View More
           </Button>
         </div>
       </div>

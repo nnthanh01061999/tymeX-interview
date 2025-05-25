@@ -1,5 +1,3 @@
-import { API_ENDPOINT } from "./env"
-
 export const baseHeader = {
   "Content-Type": "application/json",
   "Cache-Control": "no-cache",

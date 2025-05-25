@@ -1,4 +1,4 @@
-import MarketplaceItem from "@/app/[locale]/_components/product-card/product-card"
+import MarketplaceItem from "@/app/[locale]/_components/product-card"
 import * as api from "@/lib/api"
 import { MarketplaceItem as MarketplaceItemType } from "@/types"
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"

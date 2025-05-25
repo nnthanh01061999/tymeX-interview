@@ -1,176 +1,153 @@
 "use client"
 
+import FormInput from "@/components/form/form-input"
+import FormSelect from "@/components/form/form-select"
+import FormSlider from "@/components/form/form-slider"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
+import { Form } from "@/components/ui/form"
+import { THEME_OPTIONS, TIER_OPTIONS } from "@/constants"
+import useFilterQueryParams from "@/hooks/use-filter-query-params"
 import { TCategory, TTheme, TTier } from "@/types"
-import { useEffect, useState } from "react"
+import { debounce, isEmpty } from "@/util/lodash"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useSearchParams } from "next/navigation"
+import { useCallback, useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
-interface FilterPanelProps {
-  onFilterChange: (filters: FilterState) => void
-  categories: TCategory[]
-}
-
-export interface FilterState {
-  search: string
+export interface FilterFormValues {
+  q: string
   tier?: TTier
   theme?: TTheme
   category?: TCategory
   priceRange: [number, number]
 }
 
-export default function FilterPanel({
-  onFilterChange,
-  categories
-}: FilterPanelProps) {
-  const [filters, setFilters] = useState<FilterState>({
-    search: "",
-    priceRange: [0, 5]
+const formSchema = z.object({
+  q: z.string(),
+  tier: z.string(),
+  theme: z.string(),
+  category: z.string(),
+  priceRange: z.array(z.number())
+})
+
+export default function FilterPanel() {
+  const searchParams = useSearchParams()
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    defaultValues: {
+      q: searchParams.get("q") || "",
+      tier: searchParams.get("tier") || "",
+      theme: searchParams.get("theme") || "",
+      category: searchParams.get("category") || "",
+      priceRange: [
+        Number(searchParams.get("priceRange")) || 0,
+        Number(searchParams.get("priceRange")) || 0
+      ]
+    },
+    resolver: zodResolver(formSchema)
+  })
+  const updateQuery = useFilterQueryParams({
+    scrollTop: false
   })
 
-  const tiers: TTier[] = ["Basic", "Premium", "Deluxe"]
-  const themes: TTheme[] = ["Dark", "Light", "Colorful", "Halloween"]
+  const formValues = form.watch()
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFilters = { ...filters, search: e.target.value }
-    setFilters(newFilters)
-  }
+  const handleReset = useCallback(() => {
+    form.setValue("q", "")
+    form.setValue("tier", "")
+    form.setValue("theme", "")
+    form.setValue("category", "")
+    form.setValue("priceRange", [])
+    updateQuery({ data: {} })
+  }, [form, updateQuery])
 
-  const handleTierChange = (value: TTier | "") => {
-    const newFilters = {
-      ...filters,
-      tier: (value as TTier) || undefined
-    }
-    setFilters(newFilters)
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleFilter = useCallback(
+    debounce(
+      (data: z.infer<typeof formSchema>, searchParams: URLSearchParams) => {
+        const validated = Object.fromEntries(
+          Object.entries(data).filter(([, value]) =>
+            Array.isArray(value)
+              ? value.length > 0 && value.filter(Boolean).length > 0
+              : value !== ""
+          )
+        )
+        if (isEmpty(validated)) {
+          return
+        }
+        updateQuery({ data: validated, searchParams })
+      },
+      300
+    ),
+    [updateQuery, searchParams]
+  )
 
-  const handleThemeChange = (value: TTheme | "") => {
-    const newFilters = {
-      ...filters,
-      theme: (value as TTheme) || undefined
-    }
-    setFilters(newFilters)
-  }
-
-  const handleCategoryChange = (value: TCategory | "") => {
-    const newFilters = {
-      ...filters,
-      category: (value as TCategory) || undefined
-    }
-    setFilters(newFilters)
-  }
-
-  const handlePriceChange = (value: number[]) => {
-    const newFilters = {
-      ...filters,
-      priceRange: [value[0], value[1]] as [number, number]
-    }
-    setFilters(newFilters)
-  }
-
-  const handleReset = () => {
-    setFilters({
-      search: "",
-      priceRange: [0, 5]
-    })
-  }
-
-  // Apply filters when they change
   useEffect(() => {
-    onFilterChange(filters)
-  }, [filters, onFilterChange])
+    handleFilter(formValues, searchParams)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(formValues), searchParams, handleFilter])
+
+  //sync param to form
 
   return (
-    <div className="space-y-6">
-      <div>
-        <Input
-          type="text"
-          placeholder="Search"
-          value={filters.search}
-          onChange={handleSearchChange}
+    <Form {...form}>
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
+        <FormInput
+          form={form}
+          name="q"
+          label="Search"
+          childrenProps={{
+            placeholder: "Search"
+          }}
+        />
+
+        <FormSlider
+          form={form}
+          name="priceRange"
+          label="Price Range"
+          childrenProps={{
+            multiple: true,
+            min: 0,
+            //this should be a max value of filter
+            max: 9999999
+          }}
+        />
+
+        <FormSelect
+          form={form}
+          name="tier"
+          label="Tier"
+          childrenProps={{
+            options: TIER_OPTIONS.map((tier) => ({
+              label: tier.label,
+              value: tier.value
+            })),
+            placeholder: "Select Tier"
+          }}
+        />
+
+        <FormSelect
+          form={form}
+          name="theme"
+          label="Theme"
+          childrenProps={{
+            options: THEME_OPTIONS.map((theme) => ({
+              label: theme.label,
+              value: theme.value
+            })),
+            placeholder: "Select Theme"
+          }}
+        />
+
+        <Button
+          type="button"
+          variant="outline"
           className="w-full"
-        />
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => handleCategoryChange(category)}
-            className={`px-3 py-1 text-sm rounded-md border ${
-              filters.category === category
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-            }`}>
-            {category}
-          </button>
-        ))}
-      </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-2">Price Range</h3>
-        <Slider
-          defaultValue={[0, 5]}
-          max={5}
-          step={0.1}
-          value={[filters.priceRange[0], filters.priceRange[1]]}
-          onValueChange={handlePriceChange}
-          className="price-range"
-        />
-        <div className="flex justify-between mt-2 text-sm">
-          <span>{filters.priceRange[0].toFixed(1)} ETH</span>
-          <span>{filters.priceRange[1].toFixed(1)} ETH</span>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-2">Tier</h3>
-        <Select
-          value={filters.tier || ""}
-          onValueChange={(value) => handleTierChange((value as TTier) || "")}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Tier" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Tiers</SelectItem>
-            {tiers.map((tier) => (
-              <SelectItem key={tier} value={tier}>
-                {tier}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div>
-        <h3 className="text-sm font-medium mb-2">Theme</h3>
-        <Select
-          value={filters.theme || ""}
-          onValueChange={(value) => handleThemeChange((value as TTheme) || "")}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Theme" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Themes</SelectItem>
-            {themes.map((theme) => (
-              <SelectItem key={theme} value={theme}>
-                {theme}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-
-      <Button variant="outline" className="w-full" onClick={handleReset}>
-        Reset Filter
-      </Button>
-    </div>
+          onClick={handleReset}>
+          Reset Filter
+        </Button>
+      </form>
+    </Form>
   )
 }

@@ -17,6 +17,7 @@ interface UseInfiniteQueryApiOptions<
     Omit<UseInfiniteQueryOptions<TData>, "queryKey"> {
   pathVariables?: TExtractParams<TKey>
   headers?: RequestConfig<any>["headers"]
+  params?: RequestConfig<any>["params"]
   payload?: RequestConfig<any>["payload"]
   nextParamsIsData?: boolean
   onError?: (
@@ -32,6 +33,7 @@ function useInfiniteQueryApi<TData = any, TKey extends ApiKey = ApiKey>(
     pathVariables = {},
     initialPageParam,
     headers,
+    params,
     payload,
     nextParamsIsData = false,
     onError,
@@ -48,7 +50,8 @@ function useInfiniteQueryApi<TData = any, TKey extends ApiKey = ApiKey>(
       `infinite-${apiKey}`,
       ...Object.values(pathVariables),
       { ...(initialPageParam || {}), _page: undefined, _limit: undefined },
-      payload
+      payload,
+      params
     ],
     queryFn: ({ pageParam }) => {
       return sendRequest({
@@ -60,6 +63,7 @@ function useInfiniteQueryApi<TData = any, TKey extends ApiKey = ApiKey>(
         },
         params: {
           ...(initialPageParam || {}),
+          ...params,
           ...(nextParamsIsData ? {} : (pageParam as any))
         },
         payload: { ...payload, ...(nextParamsIsData ? (pageParam as any) : {}) }
