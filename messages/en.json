@@ -17,5 +17,35 @@
     "title": "Something went wrong",
     "description": "An error occurred while fetching data. Please try again.",
     "actionLabel": "Try again"
+  },
+  "header": {
+    "heading": {
+      "new": "NEW",
+      "arrival": "ARRIVAL"
+    },
+    "button": "THE DJ"
+  },
+  "product": {
+    "favorite": {
+      "add": "Add to favorites",
+      "remove": "Remove from favorites"
+    }
+  },
+  "search": {
+    "viewMore": "View More"
+  },
+  "filter": {
+    "title": "Filters",
+    "description": "Filter the products to your liking",
+    "button": "Filters",
+    "search": "Search",
+    "searchPlaceholder": "Search",
+    "price": "Price Range",
+    "tier": "Tier",
+    "tierPlaceholder": "Select Tier",
+    "theme": "Theme",
+    "themePlaceholder": "Select Theme",
+    "reset": "Reset Filter",
+    "apply": "Apply Filters"
   }
 }

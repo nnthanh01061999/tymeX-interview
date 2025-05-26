@@ -6,12 +6,14 @@ import FormSelect from "@/components/form/form-select"
 import FormSlider from "@/components/form/form-slider"
 import { Button } from "@/components/ui/button"
 import { THEME_OPTIONS, TIER_OPTIONS } from "@/constants"
+import { useTranslations } from "next-intl"
 
 interface FilterPanelProps {
   onApply?: () => void
 }
 
 export default function FilterPanel({ onApply }: FilterPanelProps) {
+  const t = useTranslations("filter")
   const { form, handleReset } = useFilterForm()
 
   return (
@@ -22,9 +24,9 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
         <FormInputDebounce
           form={form}
           name="q"
-          label="Search"
+          label={t("search")}
           childrenProps={{
-            placeholder: "Search",
+            placeholder: t("searchPlaceholder"),
             allowClear: true
           }}
         />
@@ -32,7 +34,7 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
         <FormSlider
           form={form}
           name="price"
-          label="Price Range"
+          label={t("price")}
           childrenProps={{
             multiple: true,
             min: 0,
@@ -44,26 +46,26 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
         <FormSelect
           form={form}
           name="tier"
-          label="Tier"
+          label={t("tier")}
           childrenProps={{
             options: TIER_OPTIONS.map((tier) => ({
               label: tier.label,
               value: tier.value
             })),
-            placeholder: "Select Tier"
+            placeholder: t("tierPlaceholder")
           }}
         />
 
         <FormSelect
           form={form}
           name="theme"
-          label="Theme"
+          label={t("theme")}
           childrenProps={{
             options: THEME_OPTIONS.map((theme) => ({
               label: theme.label,
               value: theme.value
             })),
-            placeholder: "Select Theme"
+            placeholder: t("themePlaceholder")
           }}
         />
       </div>
@@ -74,12 +76,12 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
           variant="outline"
           className="w-full"
           onClick={handleReset}>
-          Reset Filter
+          {t("reset")}
         </Button>
 
         {onApply && (
           <Button type="button" className="w-full" onClick={onApply}>
-            Apply Filters
+            {t("apply")}
           </Button>
         )}
       </div>

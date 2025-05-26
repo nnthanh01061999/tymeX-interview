@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { IProduct } from "@/types"
 import { formatNumber } from "@/util/format"
 import { Heart } from "lucide-react"
+import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -14,6 +15,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ item }: ProductCardProps) {
+  const t = useTranslations("product.favorite")
   const [isFavorite, setIsFavorite] = useState(item.isFavorite || false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -55,7 +57,7 @@ export default function ProductCard({ item }: ProductCardProps) {
       <CardFooter className="flex justify-between items-center p-3 pt-0">
         <div className="font-semibold">{formatNumber(item.price)} ETH</div>
         <Button
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          aria-label={isFavorite ? t("remove") : t("add")}
           onClick={handleFavoriteToggle}
           disabled={isLoading}
           variant="ghost"

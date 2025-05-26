@@ -10,9 +10,11 @@ import ErrorIndicator from "@/components/indicators/error"
 import Loading from "@/components/indicators/loading"
 import { Button } from "@/components/ui/button"
 import { CATEGORY_OPTIONS } from "@/constants/filter"
+import { useTranslations } from "next-intl"
 import { useCallback } from "react"
 
 function SearchResult() {
+  const t = useTranslations("search")
   const { form, handleReset } = useFilterForm()
 
   const {
@@ -56,7 +58,7 @@ function SearchResult() {
               loading={isFetchingNextPage}
               variant="outline"
               onClick={() => fetchNextPage()}>
-              View More
+              {t("viewMore")}
             </Button>
           </div>
         )}
@@ -69,7 +71,8 @@ function SearchResult() {
     isError,
     isFetchingNextPage,
     isPending,
-    items
+    items,
+    t
   ])
 
   return (

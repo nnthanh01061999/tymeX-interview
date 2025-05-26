@@ -17,5 +17,35 @@
     "title": "Có lỗi xảy ra",
     "description": "Đã xảy ra lỗi khi tải dữ liệu. Vui lòng thử lại.",
     "actionLabel": "Thử lại"
+  },
+  "header": {
+    "heading": {
+      "new": "MỚI",
+      "arrival": "RA MẮT"
+    },
+    "button": "DJ"
+  },
+  "product": {
+    "favorite": {
+      "add": "Thêm vào yêu thích",
+      "remove": "Xóa khỏi yêu thích"
+    }
+  },
+  "search": {
+    "viewMore": "Xem thêm"
+  },
+  "filter": {
+    "title": "Bộ lọc",
+    "description": "Lọc sản phẩm theo ý thích của bạn",
+    "button": "Bộ lọc",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm kiếm",
+    "price": "Khoảng giá",
+    "tier": "Cấp độ",
+    "tierPlaceholder": "Chọn cấp độ",
+    "theme": "Chủ đề",
+    "themePlaceholder": "Chọn chủ đề",
+    "reset": "Đặt lại bộ lọc",
+    "apply": "Áp dụng bộ lọc"
   }
 }
