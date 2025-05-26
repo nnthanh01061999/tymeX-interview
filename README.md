@@ -4,7 +4,7 @@ A modern NFT marketplace built with Next.js, TypeScript, Tailwind CSS, and Shadc
 
 ## Features
 
-- Browse NFT items with infinite loading
+- Browse Product items with infinite loading
 - Search and filter items by various criteria
 - Favorite items functionality
 - Responsive design that works on all devices
@@ -52,6 +52,22 @@ A modern NFT marketplace built with Next.js, TypeScript, Tailwind CSS, and Shadc
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Installation mock server
+
+1. CD to mock/tymex-mock-server-nodejs
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Run the development mock server
+
+   ```bash
+   npm run dev
+   ```
+
 ## Testing
 
 Run the tests with:
@@ -77,21 +93,6 @@ yarn test:coverage
   - `/src/components/ui`: Shadcn UI components
 - `/src/lib`: Utility functions and API services
 - `/src/types`: TypeScript type definitions
-
-## API
-
-The project uses a mock API service for demonstration purposes. In a real-world scenario, this would be replaced with actual API calls to a backend service.
-
-- `fetchMarketplaceItems`: Fetches items with filtering and pagination
-- `toggleFavorite`: Toggles the favorite status of an item
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 

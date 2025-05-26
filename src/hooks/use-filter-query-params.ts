@@ -1,16 +1,13 @@
 import getQueryString, { GetQueryString } from "@/util/query-params"
-import {
-  ReadonlyURLSearchParams,
-  usePathname,
-  useRouter
-} from "next/navigation"
-import { useCallback } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import qs from "qs"
+import { useCallback, useMemo } from "react"
 
 export type FilterQuery = {
   data: Record<string, unknown>
   pathname?: string
   scrollTop?: boolean
-  searchParams?: URLSearchParams | ReadonlyURLSearchParams
+  reset?: boolean
 } & Omit<GetQueryString, "data" | "searchParams">
 
 type UseFilterQueryParamsOptions = {
@@ -27,28 +24,36 @@ export default function useFilterQueryParams(
     scrollTop = true,
     getQuery = getQueryString
   } = options || {}
+  const searchParams = useSearchParams()
   const router = useRouter()
   const currentPathname = usePathname()
 
-  const updateQuery = useCallback(
-    ({
-      data,
-      pathname,
-      scrollTop: localScrollTop,
-      searchParams
-    }: FilterQuery) => {
+  const params = useMemo(() => {
+    return qs.parse(searchParams.toString())
+  }, [searchParams])
+
+  const setParams = useCallback(
+    ({ data, pathname, scrollTop: localScrollTop, reset }: FilterQuery) => {
       const method = replace ? router.replace : router.push
       const targetPath = pathname || currentPathname
       const queryString = getQuery({
         data,
-        searchParams: searchParams || new URLSearchParams()
+        searchParams: reset ? new URLSearchParams() : searchParams
       })
       method(`${targetPath}?${queryString}`, {
         scroll: localScrollTop ?? scrollTop ?? true
       })
     },
-    [replace, router.replace, router.push, currentPathname, getQuery, scrollTop]
+    [
+      currentPathname,
+      getQuery,
+      replace,
+      router.push,
+      router.replace,
+      scrollTop,
+      searchParams
+    ]
   )
 
-  return updateQuery
+  return { params, setParams }
 }

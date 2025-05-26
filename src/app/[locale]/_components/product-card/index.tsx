@@ -4,19 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { IProduct } from "@/types"
+import { formatNumber } from "@/util/format"
 import { Heart } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
 interface ProductCardProps {
   item: IProduct
-  onFavoriteToggle: (id: number, isFavorite: boolean) => void
 }
 
-export default function ProductCard({
-  item,
-  onFavoriteToggle
-}: ProductCardProps) {
+export default function ProductCard({ item }: ProductCardProps) {
   const [isFavorite, setIsFavorite] = useState(item.isFavorite || false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -24,26 +21,21 @@ export default function ProductCard({
     if (isLoading) return
 
     setIsLoading(true)
-    try {
-      const newState = !isFavorite
-      setIsFavorite(newState)
-      onFavoriteToggle(item.id, newState)
-    } catch (error) {
-      console.error("Failed to toggle favorite:", error)
-    } finally {
-      setIsLoading(false)
-    }
+    setIsFavorite((prev) => !prev)
+    setIsLoading(false)
   }
+
+  if (!item) return null
 
   return (
     <Card className="h-full flex flex-col overflow-hidden">
       <div className="relative h-48">
         <div className="relative size-full">
           <Image
-            src={`https://picsum.photos/200/300?random=${item.imageId}`}
+            src={`https://picsum.photos/600/800?random=${item.imageId}`}
             alt={item.title}
             fill
-            sizes="(min-width: 808px) 50vw, 100vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 20vw, 20vw"
             className="object-cover"
           />
         </div>
@@ -51,13 +43,17 @@ export default function ProductCard({
 
       <CardContent className="flex-grow p-3">
         <div className="flex flex-col">
-          <h3 className="font-medium">{item.title}</h3>
+          <h3
+            title={item.title}
+            className="font-medium line-clamp-1 text-ellipsis">
+            {item.title}
+          </h3>
           <span className="text-sm text-gray-500">{item.tier}</span>
         </div>
       </CardContent>
 
       <CardFooter className="flex justify-between items-center p-3 pt-0">
-        <div className="font-semibold">{item.price.toFixed(2)} ETH</div>
+        <div className="font-semibold">{formatNumber(item.price)} ETH</div>
         <Button
           aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
           onClick={handleFavoriteToggle}

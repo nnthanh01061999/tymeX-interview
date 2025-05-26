@@ -76,9 +76,6 @@ export const createRequest = (props: CreateRequestProps) => {
         return response
       }
     } catch (error) {
-      console.log(
-        error instanceof Error ? error.message : "Failed to refresh token"
-      )
       throw new Error(
         error instanceof Error ? error.message : "Failed to refresh token"
       )
@@ -187,9 +184,8 @@ export const createRequest = (props: CreateRequestProps) => {
       } else {
         errData = error
       }
-
       if (throwError) {
-        throw Error(errData)
+        throw new Error(errData.message)
       }
       return {
         success: false,

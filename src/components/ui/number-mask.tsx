@@ -17,7 +17,7 @@ function NumberMask(props: TNumberMaskProps) {
       thousandSeparator=","
       customInput={Input}
       {...containProps}
-      value={value}
+      value={value ?? undefined}
       onValueChange={(e) => {
         onChange(e.floatValue)
       }}

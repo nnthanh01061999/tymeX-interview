@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useMemo } from "react"
 
@@ -7,13 +8,15 @@ interface EmptyIndicatorProps {
   description?: string
   actionLabel?: string
   onAction?: () => void
+  className?: string
 }
 
 export default function EmptyIndicator({
   title,
   description,
   actionLabel,
-  onAction
+  onAction,
+  className
 }: EmptyIndicatorProps) {
   const t = useTranslations("empty")
 
@@ -27,7 +30,11 @@ export default function EmptyIndicator({
   )
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center py-12 px-4 text-center",
+        className
+      )}>
       <div className="mb-6 rounded-full bg-gray-100 p-5 w-16 h-16 flex items-center justify-center">
         <svg
           className="w-8 h-8 text-gray-400"

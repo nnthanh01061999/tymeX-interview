@@ -56,6 +56,7 @@ function useInfiniteQueryApi<TData = any, TKey extends ApiKey = ApiKey>(
     queryFn: ({ pageParam }) => {
       return sendRequest({
         method,
+        throwError: true,
         url: apiPath,
         headers: {
           ...options.headers,
@@ -68,7 +69,9 @@ function useInfiniteQueryApi<TData = any, TKey extends ApiKey = ApiKey>(
         },
         payload: { ...payload, ...(nextParamsIsData ? (pageParam as any) : {}) }
       })
-        .then((res) => res.responseData)
+        .then((res) => {
+          return res.responseData
+        })
         .catch((error) => {
           if (onError) {
             onError?.(error)
@@ -79,7 +82,7 @@ function useInfiniteQueryApi<TData = any, TKey extends ApiKey = ApiKey>(
               variant: "destructive"
             })
           }
-          return error
+          throw error
         })
     },
     retry: false,

@@ -1,40 +1,40 @@
+"use client"
+
 import HorizontalScrollButton from "@/app/[locale]/_components/category-toggle/horizontal-scroll-button"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { CATEGORY_OPTIONS } from "@/constants"
-import useFilterQueryParams from "@/hooks/use-filter-query-params"
 import useHasScroll from "@/hooks/use-has-scroll"
 import { TCategory } from "@/types/model/product"
 import { scrollHorizontallyToCenter } from "@/util/scroll"
-import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
 
-export default function CategoryToggle() {
-  const searchParams = useSearchParams()
-  const [category, setCategory] = useState<string>(
-    searchParams.get("category") || "all"
-  )
+export type CategoryToggleProps = {
+  options: {
+    label: string
+    value: string
+  }[]
+  value: string
+  onChange: (value: string | undefined) => void
+}
 
-  const updateQuery = useFilterQueryParams({
-    scrollTop: false
-  })
-
+export default function CategoryToggle({
+  options,
+  value,
+  onChange
+}: CategoryToggleProps) {
   const { ref, hasScrollLeft, hasScrollRight } = useHasScroll()
 
   const handleChange = (value: string) => {
     if (!value) {
-      setCategory("all")
-      updateQuery({ data: { category: undefined }, searchParams })
+      onChange(undefined)
       return
     }
-    setCategory(value as TCategory)
+    onChange(value as TCategory)
     scrollHorizontallyToCenter(value)
-    updateQuery({ data: { category: value }, searchParams })
   }
 
-  useEffect(() => {
-    if (!category) return
-    scrollHorizontallyToCenter(category)
-  }, [category])
+  // useEffect(() => {
+  //   if (!value) return
+  //   scrollHorizontallyToCenter(value)
+  // }, [value])
 
   return (
     <div className="relative">
@@ -51,10 +51,10 @@ export default function CategoryToggle() {
       <ToggleGroup
         ref={ref}
         type="single"
-        value={category}
+        value={value || "all"}
         onValueChange={handleChange}
         className="flex justify-start gap-2 items-center overflow-auto scrollbar-hide">
-        {CATEGORY_OPTIONS.map((category) => (
+        {options.map((category) => (
           <ToggleGroupItem
             id={category.value}
             key={category.value}

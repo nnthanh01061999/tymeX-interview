@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useMemo } from "react"
 
@@ -7,13 +8,15 @@ interface ErrorIndicatorProps {
   description?: string
   actionLabel?: string
   onRetry?: () => void
+  className?: string
 }
 
 export default function ErrorIndicator({
   title,
   description,
   actionLabel,
-  onRetry
+  onRetry,
+  className
 }: ErrorIndicatorProps) {
   const t = useTranslations("error")
 
@@ -27,7 +30,11 @@ export default function ErrorIndicator({
   )
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center py-12 px-4 text-center",
+        className
+      )}>
       <div className="mb-6 rounded-full bg-red-100 p-5 w-16 h-16 flex items-center justify-center">
         <svg
           className="w-8 h-8 text-red-500"

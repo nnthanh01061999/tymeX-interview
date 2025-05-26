@@ -46,6 +46,7 @@ function useQueryApi<TData, TKey extends ApiKey = ApiKey>(
       }
       return sendRequest({
         method,
+        throwError: true,
         url: apiPath,
         headers: requestOptions,
         params,
@@ -69,7 +70,7 @@ function useQueryApi<TData, TKey extends ApiKey = ApiKey>(
               variant: "destructive"
             })
           }
-          return error
+          throw error
         })
     },
     retry: false,

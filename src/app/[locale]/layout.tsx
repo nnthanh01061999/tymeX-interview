@@ -1,3 +1,5 @@
+import HydrationProvider from "@/components/contexts/HydrationContext"
+import FloatAction from "@/components/layout/float-action"
 import { Toaster } from "@/components/ui/toaster"
 import { routing } from "@/i18n/routing"
 import { QueryClientProvider } from "@/lib/react-query"
@@ -103,10 +105,13 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <QueryClientProvider>
-            {children}
-            <Toaster />
-          </QueryClientProvider>
+          <HydrationProvider userAgent={userAgent}>
+            <QueryClientProvider>
+              {children}
+              <Toaster />
+              <FloatAction />
+            </QueryClientProvider>
+          </HydrationProvider>
         </NextIntlClientProvider>
       </body>
     </html>

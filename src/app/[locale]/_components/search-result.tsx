@@ -1,62 +1,90 @@
 "use client"
 
-import CategoryToggle from "@/app/[locale]/_components/category-toggle"
+import FormCategory from "@/app/[locale]/_components/category-toggle/form-category"
+import { useFilterForm } from "@/app/[locale]/_components/filter-form-context"
 import Product from "@/app/[locale]/_components/product-card"
-import ProductSkeleton from "@/app/[locale]/_components/product-card/product-card-placeholder"
+import ProductSkeleton from "@/app/[locale]/_components/product-card/product-card-skeleton"
 import useProducts from "@/app/[locale]/hooks/use-search-products"
 import EmptyIndicator from "@/components/indicators/empty"
 import ErrorIndicator from "@/components/indicators/error"
+import Loading from "@/components/indicators/loading"
 import { Button } from "@/components/ui/button"
-import useFilterQueryParams from "@/hooks/use-filter-query-params"
+import { CATEGORY_OPTIONS } from "@/constants/filter"
+import { useCallback } from "react"
 
-function MarketplaceResult() {
-  const updateQuery = useFilterQueryParams({
-    scrollTop: false
-  })
-  const { items, loading, isLoadingMore, error, fetchNextPage } = useProducts()
+function SearchResult() {
+  const { form, handleReset } = useFilterForm()
 
-  const handleReset = () => {
-    updateQuery({ data: {} })
-  }
+  const {
+    items,
+    isFetching,
+    isFetchingNextPage,
+    isError,
+    hasNextPage,
+    fetchNextPage
+  } = useProducts()
 
-  const renderContent = () => {
-    if (error) {
-      return <ErrorIndicator onRetry={handleReset} />
+  const renderContent = useCallback(() => {
+    if (isError) {
+      return <ErrorIndicator onRetry={handleReset} className="h-[50vh]" />
     }
 
-    if (!loading && items && items.length === 0) {
-      return <EmptyIndicator onAction={handleReset} />
+    if (!isFetching && items && items.length === 0) {
+      return <EmptyIndicator onAction={handleReset} className="h-[50vh]" />
+    }
+
+    if (isFetching) {
+      return (
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <ProductSkeleton key={`skeleton-${index}`} />
+            ))}
+          </div>
+        </div>
+      )
     }
 
     return (
       <div className="flex flex-col gap-4">
-        <CategoryToggle />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Existing items */}
-          {items &&
-            items.map((item) => (
-              <Product key={item.id} item={item} onFavoriteToggle={() => {}} />
-            ))}
-
-          {/* Loading skeletons */}
-          {loading &&
-            Array.from({ length: 8 }).map((_, index) => (
-              <ProductSkeleton key={`skeleton-${index}`} />
-            ))}
+          {items && items.map((item) => <Product key={item.id} item={item} />)}
         </div>
-        <div className="flex justify-center mt-4">
-          <Button
-            loading={isLoadingMore}
-            variant="outline"
-            onClick={() => fetchNextPage()}>
-            View More
-          </Button>
-        </div>
+        {hasNextPage && (
+          <div className="flex justify-center mt-4">
+            <Button
+              loading={isFetchingNextPage}
+              variant="outline"
+              onClick={() => fetchNextPage()}>
+              View More
+            </Button>
+          </div>
+        )}
       </div>
     )
-  }
+  }, [
+    fetchNextPage,
+    handleReset,
+    hasNextPage,
+    isError,
+    isFetching,
+    isFetchingNextPage,
+    items
+  ])
 
-  return <div className="md:col-span-3">{renderContent()}</div>
+  return (
+    <div className="md:col-span-3">
+      <div className="flex flex-col gap-4">
+        <FormCategory
+          form={form}
+          name="category"
+          childrenProps={{ options: CATEGORY_OPTIONS }}
+        />
+        {renderContent()}
+        <Loading loading={isFetching} />
+      </div>
+    </div>
+  )
 }
 
-export default MarketplaceResult
+export default SearchResult

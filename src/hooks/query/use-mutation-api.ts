@@ -23,6 +23,7 @@ type TVariables<
 type UseMutationApiOptions<
   TPayload,
   TData,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _TError,
   TKey extends ApiKey = ApiKey
 > = UseMutationOptions<TData, ResponseError, TPayload> & {
@@ -72,6 +73,7 @@ function useMutationApi<
 
     const res = await sendRequest({
       url: urlObject.href,
+      throwError: true,
       ...options,
       method: methodOption,
       headers: {

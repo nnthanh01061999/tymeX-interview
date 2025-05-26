@@ -1,6 +1,17 @@
 // components/ZigZagDivider.tsx
-const ZigZagDivider = () => (
-  <div className="relative w-full overflow-hidden leading-none">
+import { cn } from "@/lib/utils"
+
+interface ZigZagDividerProps {
+  className?: string
+  color?: string
+}
+
+const ZigZagDivider = ({
+  className,
+  color = "text-gray-100"
+}: ZigZagDividerProps) => (
+  <div
+    className={cn("relative w-full overflow-hidden leading-none", className)}>
     <svg
       className="block w-full h-[100px]"
       viewBox="0 0 1440 100"
@@ -21,7 +32,7 @@ const ZigZagDivider = () => (
          L0,0 
          Z"
         fill="currentColor"
-        className="text-gray-100"
+        className={color}
       />
     </svg>
   </div>

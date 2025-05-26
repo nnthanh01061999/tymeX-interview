@@ -37,21 +37,21 @@ function FormSlider<T extends FieldValues>({
             <div className="space-y-4">
               <Slider
                 {...childrenProps}
-                value={field.value}
+                value={[field.value[0] || 0, field.value[1] || 0]}
                 onValueChange={(e) => {
                   field.onChange(e)
                 }}
               />
               <div className="flex gap-2">
                 <NumberMask
-                  value={field.value?.[0] || undefined}
+                  value={field.value?.[0]}
                   onChange={(e) => {
                     field.onChange([e, field.value[1]])
                   }}
                   placeholder="Min"
                 />
                 <NumberMask
-                  value={field.value?.[1] || undefined}
+                  value={field.value?.[1]}
                   onChange={(e) => {
                     field.onChange([field.value[0], e])
                   }}
