@@ -1,3 +1,7 @@
+import NumberMaskDebounce from "@/components/builder/debounce/number-mask-debounce"
+import SliderDebounce, {
+  SliderDebounceProps
+} from "@/components/builder/debounce/slider-debounce"
 import {
   FormControl,
   FormDescription,
@@ -6,13 +10,11 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form"
-import NumberMask from "@/components/ui/number-mask"
-import { Slider, SliderProps } from "@/components/ui/slider"
 import { FormWrapperProps } from "@/types/form"
 import { FieldValues } from "react-hook-form"
 
 type TFormSliderProps<T extends FieldValues> = FormWrapperProps<T> & {
-  childrenProps?: SliderProps
+  childrenProps?: SliderDebounceProps
 }
 
 function FormSlider<T extends FieldValues>({
@@ -30,44 +32,49 @@ function FormSlider<T extends FieldValues>({
     <FormField
       control={form.control}
       name={name}
-      render={({ field }) => (
-        <FormItem>
-          {label && <FormLabel {...labelProps}>{label}</FormLabel>}
-          <FormControl {...controlProps}>
-            <div className="space-y-4">
-              <Slider
-                {...childrenProps}
-                value={[field.value[0] || 0, field.value[1] || 0]}
-                onValueChange={(e) => {
-                  field.onChange(e)
-                }}
-              />
-              <div className="flex gap-2">
-                <NumberMask
-                  value={field.value?.[0]}
-                  onChange={(e) => {
-                    field.onChange([e, field.value[1]])
-                  }}
-                  placeholder="Min"
+      render={({ field }) => {
+        const onChangeMin = (e?: number) => {
+          field.onChange([e, field.value[1]])
+        }
+
+        const onChangeMax = (e?: number) => {
+          field.onChange([field.value[0], e])
+        }
+        return (
+          <FormItem>
+            {label && <FormLabel {...labelProps}>{label}</FormLabel>}
+            <FormControl {...controlProps}>
+              <div className="space-y-4">
+                <SliderDebounce
+                  {...childrenProps}
+                  value={[field.value[0] || 0, field.value[1] || 0]}
+                  onValueChange={field.onChange}
                 />
-                <NumberMask
-                  value={field.value?.[1]}
-                  onChange={(e) => {
-                    field.onChange([field.value[0], e])
-                  }}
-                  placeholder="Max"
-                />
+                <div className="flex gap-2">
+                  <NumberMaskDebounce
+                    value={field.value?.[0]}
+                    onChange={onChangeMin}
+                    placeholder="Min"
+                    allowClear={true}
+                  />
+                  <NumberMaskDebounce
+                    value={field.value?.[1]}
+                    onChange={onChangeMax}
+                    placeholder="Max"
+                    allowClear={true}
+                  />
+                </div>
               </div>
-            </div>
-          </FormControl>
-          {description && (
-            <FormDescription {...descriptionProps}>
-              {description}
-            </FormDescription>
-          )}
-          <FormMessage {...messageProps} />
-        </FormItem>
-      )}
+            </FormControl>
+            {description && (
+              <FormDescription {...descriptionProps}>
+                {description}
+              </FormDescription>
+            )}
+            <FormMessage {...messageProps} />
+          </FormItem>
+        )
+      }}
     />
   )
 }

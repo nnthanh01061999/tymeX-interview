@@ -1,6 +1,6 @@
 "use client"
 
-import FilterForm from "@/app/[locale]/_components/filter-form-context"
+import FilterForm from "@/app/[locale]/_components/filters/filter-form-context"
 import FilterPanel from "@/app/[locale]/_components/filters/filter-panel"
 import FilterSheet from "@/app/[locale]/_components/filters/filter-sheet"
 import SearchResult from "@/app/[locale]/_components/search-result"

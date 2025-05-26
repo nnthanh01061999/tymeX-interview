@@ -10,11 +10,20 @@ export function debounce<F extends (...args: any[]) => void>(
   }
 }
 
-export function isEmpty(value?: any): boolean {
+export function isEmpty(value: any): boolean {
   if (value == null) return true
-  if (Array.isArray(value) || typeof value === "string")
+
+  if (typeof value === "string" || Array.isArray(value)) {
     return value.length === 0
-  if (typeof value === "object") return Object.keys(value).length === 0
+  }
+
+  if (typeof value === "object") {
+    if (value instanceof Date || value instanceof Map || value instanceof Set)
+      return false
+
+    return Object.keys(value).every((key) => isEmpty(value[key]))
+  }
+
   return false
 }
 

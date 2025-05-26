@@ -41,7 +41,7 @@ export default function ProductCard({ item }: ProductCardProps) {
         </div>
       </div>
 
-      <CardContent className="flex-grow p-3">
+      <CardContent className="grow p-3">
         <div className="flex flex-col">
           <h3
             title={item.title}

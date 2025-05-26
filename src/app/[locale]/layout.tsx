@@ -1,5 +1,6 @@
 import HydrationProvider from "@/components/contexts/HydrationContext"
 import FloatAction from "@/components/layout/float-action"
+import { ThemeProvider } from "@/components/theme/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { routing } from "@/i18n/routing"
 import { QueryClientProvider } from "@/lib/react-query"
@@ -106,11 +107,13 @@ export default async function RootLayout({
         suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <HydrationProvider userAgent={userAgent}>
-            <QueryClientProvider>
-              {children}
-              <Toaster />
-              <FloatAction />
-            </QueryClientProvider>
+            <ThemeProvider>
+              <QueryClientProvider>
+                {children}
+                <Toaster />
+                <FloatAction />
+              </QueryClientProvider>
+            </ThemeProvider>
           </HydrationProvider>
         </NextIntlClientProvider>
       </body>

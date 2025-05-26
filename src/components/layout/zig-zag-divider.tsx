@@ -1,15 +1,10 @@
-// components/ZigZagDivider.tsx
 import { cn } from "@/lib/utils"
 
 interface ZigZagDividerProps {
   className?: string
-  color?: string
 }
 
-const ZigZagDivider = ({
-  className,
-  color = "text-gray-100"
-}: ZigZagDividerProps) => (
+const ZigZagDivider = ({ className }: ZigZagDividerProps) => (
   <div
     className={cn("relative w-full overflow-hidden leading-none", className)}>
     <svg
@@ -32,7 +27,7 @@ const ZigZagDivider = ({
          L0,0 
          Z"
         fill="currentColor"
-        className={color}
+        className="text-muted"
       />
     </svg>
   </div>

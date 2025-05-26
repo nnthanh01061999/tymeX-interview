@@ -51,7 +51,7 @@ const defaultValues = {
   tier: "",
   theme: "",
   category: "",
-  price: [0, 0]
+  price: [undefined, undefined]
 }
 
 export default function FilterForm({ children }: PropsWithChildren) {
@@ -76,7 +76,8 @@ export default function FilterForm({ children }: PropsWithChildren) {
   const handleFilter = useCallback(
     (data: z.infer<typeof formSchema>) => {
       const validated = getValidatedParams(data)
-      setParams({ data: isEmpty(validated) ? {} : validated })
+      const empty = isEmpty(validated)
+      setParams({ data: empty ? {} : validated, reset: true })
     },
     [setParams]
   )

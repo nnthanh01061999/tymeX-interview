@@ -1,10 +1,13 @@
 "use client"
 
 import HorizontalScrollButton from "@/app/[locale]/_components/category-toggle/horizontal-scroll-button"
+import { useFilterForm } from "@/app/[locale]/_components/filters/filter-form-context"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import useHasScroll from "@/hooks/use-has-scroll"
+import { useResponsive } from "@/hooks/use-responsive"
 import { TCategory } from "@/types/model/product"
 import { scrollHorizontallyToCenter } from "@/util/scroll"
+import { useEffect } from "react"
 
 export type CategoryToggleProps = {
   options: {
@@ -20,6 +23,8 @@ export default function CategoryToggle({
   value,
   onChange
 }: CategoryToggleProps) {
+  const { isDesktop } = useResponsive()
+  const { form, handleFilter } = useFilterForm()
   const { ref, hasScrollLeft, hasScrollRight } = useHasScroll()
 
   const handleChange = (value: string) => {
@@ -29,12 +34,16 @@ export default function CategoryToggle({
     }
     onChange(value as TCategory)
     scrollHorizontallyToCenter(value)
+
+    if (!isDesktop) {
+      handleFilter({ ...form.getValues(), category: value })
+    }
   }
 
-  // useEffect(() => {
-  //   if (!value) return
-  //   scrollHorizontallyToCenter(value)
-  // }, [value])
+  useEffect(() => {
+    if (!value) return
+    scrollHorizontallyToCenter(value)
+  }, [value])
 
   return (
     <div className="relative">
@@ -59,7 +68,7 @@ export default function CategoryToggle({
             id={category.value}
             key={category.value}
             value={category.value}
-            className="flex-shrink-0 bg-transparent border border-solid border-gray-200 hover:bg-gray-200">
+            className="shrink-0 bg-background border border-solid border-input hover:bg-accent hover:text-accent-foreground">
             {category.label}
           </ToggleGroupItem>
         ))}

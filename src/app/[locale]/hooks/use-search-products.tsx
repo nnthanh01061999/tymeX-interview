@@ -17,6 +17,7 @@ const useSearchProducts = () => {
 
   const {
     data,
+    isPending,
     isFetching,
     isFetchingNextPage,
     isError,
@@ -52,7 +53,8 @@ const useSearchProducts = () => {
 
   return {
     items: data?.pages.flatMap((page) => page) ?? [],
-    isFetching,
+    isFetching: isFetching && !isError,
+    isPending,
     isFetchingNextPage,
     isError,
     refetch,

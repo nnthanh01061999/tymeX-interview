@@ -1,6 +1,6 @@
 "use client"
 
-import { useFilterForm } from "@/app/[locale]/_components/filter-form-context"
+import { useFilterForm } from "@/app/[locale]/_components/filters/filter-form-context"
 import FilterPanel from "@/app/[locale]/_components/filters/filter-panel"
 import { Button } from "@/components/ui/button"
 import {

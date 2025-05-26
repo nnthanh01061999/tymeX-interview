@@ -11,7 +11,7 @@ export default function Footer({ className }: { className?: string }) {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           {/* Navigation */}
           <div>
-            <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">
+            <h3 className="font-medium text-primary mb-4 text-sm uppercase tracking-wider">
               Navigation
             </h3>
             <ul className="space-y-3">
@@ -25,7 +25,7 @@ export default function Footer({ className }: { className?: string }) {
                   key={index}
                   className="transition-transform hover:translate-x-1 duration-200">
                   <Link href={link.href}>
-                    <span className="text-gray-600 hover:text-gray-900">
+                    <span className="text-primary hover:text-muted-primary">
                       {link.label}
                     </span>
                   </Link>
@@ -36,7 +36,7 @@ export default function Footer({ className }: { className?: string }) {
 
           {/* Contact Us */}
           <div>
-            <h3 className="font-medium text-gray-700 mb-4 text-sm uppercase tracking-wider">
+            <h3 className="font-medium text-primary mb-4 text-sm uppercase tracking-wider">
               Contact Us
             </h3>
             <ul className="space-y-3">
@@ -66,7 +66,7 @@ export default function Footer({ className }: { className?: string }) {
                   key={index}
                   className="transition-transform hover:translate-x-1 duration-200">
                   <Link href={contact.href}>
-                    <span className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    <span className="flex items-center gap-2 text-primary hover:text-muted-primary">
                       {contact.icon}
                       {contact.label}
                     </span>
@@ -78,12 +78,10 @@ export default function Footer({ className }: { className?: string }) {
 
           {/* Newsletter */}
           <div className="col-span-2 md:col-span-1">
-            <h3 className="font-medium text-gray-600 mb-4">NEWSLETTER</h3>
+            <h3 className="font-medium text-primary mb-4">NEWSLETTER</h3>
             <div className="space-y-4 items-end flex flex-col">
               <Input type="email" placeholder="Enter your email" />
-              <Button
-                type="button"
-                className="md:w-1/2 bg-white text-black border border-gray-300 hover:bg-gray-100 rounded px-6">
+              <Button type="button" variant="outline" className="md:w-1/2">
                 Subscribe
               </Button>
             </div>

@@ -39,7 +39,7 @@ function ScrollToTop(props: ScrollToTopProps) {
       size="icon"
       onClick={scrollToTop}
       className={cn(
-        !isVisible && "!h-0 !w-0 opacity-0",
+        !isVisible && "h-0! w-0! opacity-0",
         "transition-all rounded-full justify-self-end",
         className
       )}>

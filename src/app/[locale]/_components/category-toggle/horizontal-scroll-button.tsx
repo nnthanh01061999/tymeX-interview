@@ -31,17 +31,17 @@ function HorizontalScrollButton({
       onClick={scrollTo(direction)}
       variant="outline"
       className={cn([
-        "border-none outline-none ring-0 absolute bottom-0 z-[1] rounded-none",
+        "outline-hidden ring-0 absolute bottom-0 z-1 rounded-none",
         "p-0",
         direction === "left"
-          ? "justify-start left-[-1px]"
-          : "justify-end right-[-1px]",
+          ? "justify-start -left-px"
+          : "justify-end -right-px",
         className
       ])}>
       {direction === "left" ? (
-        <ChevronLeftIcon className="w-4 h-4 text-black" />
+        <ChevronLeftIcon className="w-4 h-4 text-primary" />
       ) : (
-        <ChevronRightIcon className="w-4 h-4 text-black" />
+        <ChevronRightIcon className="w-4 h-4 text-primary" />
       )}
     </Button>
   )

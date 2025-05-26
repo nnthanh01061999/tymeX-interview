@@ -1,6 +1,6 @@
 "use client"
 
-import { useFilterForm } from "@/app/[locale]/_components/filter-form-context"
+import { useFilterForm } from "@/app/[locale]/_components/filters/filter-form-context"
 import FormInputDebounce from "@/components/form/form-input-debounce"
 import FormSelect from "@/components/form/form-select"
 import FormSlider from "@/components/form/form-slider"
@@ -24,9 +24,9 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
           name="q"
           label="Search"
           childrenProps={{
-            placeholder: "Search"
+            placeholder: "Search",
+            allowClear: true
           }}
-          debounceTime={300}
         />
 
         <FormSlider

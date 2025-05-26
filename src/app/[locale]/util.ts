@@ -12,6 +12,9 @@ export const getValidatedParams = (data: Record<string, any>) => {
             [`${key}_lte`]: value[1]
           }
         }
+        if (key === "category") {
+          return { ...acc, category: value === "all" ? undefined : value }
+        }
         return { ...acc, [key]: value }
       },
       {} as Record<string, string | number>

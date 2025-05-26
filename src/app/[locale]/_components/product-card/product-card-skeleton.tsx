@@ -6,7 +6,7 @@ export default function ProductCardSkeleton() {
     <Card className="h-full flex flex-col overflow-hidden">
       <Skeleton className="h-48 w-full" />
 
-      <CardContent className="flex-grow p-3">
+      <CardContent className="grow p-3">
         <div className="flex flex-col space-y-2">
           <Skeleton className="h-6 w-16" />
           <Skeleton className="h-5 w-32" />

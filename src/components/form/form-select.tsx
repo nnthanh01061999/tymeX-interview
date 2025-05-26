@@ -1,3 +1,4 @@
+import BaseSelect, { BaseSelectProps } from "@/components/builder/base-select"
 import {
   FormControl,
   FormDescription,
@@ -6,25 +7,11 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select"
-import { TTier } from "@/types"
 import { FormWrapperProps } from "@/types/form"
 import { FieldValues } from "react-hook-form"
 
 type TFormSelectProps<T extends FieldValues> = FormWrapperProps<T> & {
-  childrenProps?: {
-    options: {
-      label: string
-      value: string
-    }[]
-    placeholder?: string
-  }
+  childrenProps: BaseSelectProps<React.ReactNode>
 }
 
 function FormSelect<T extends FieldValues>({
@@ -46,20 +33,11 @@ function FormSelect<T extends FieldValues>({
         <FormItem>
           {label && <FormLabel {...labelProps}>{label}</FormLabel>}
           <FormControl {...controlProps}>
-            <Select
-              value={field.value || ""}
-              onValueChange={(value) => field.onChange((value as TTier) || "")}>
-              <SelectTrigger>
-                <SelectValue placeholder={childrenProps?.placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                {childrenProps?.options.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <BaseSelect
+              {...field}
+              {...childrenProps}
+              onValueChange={field.onChange}
+            />
           </FormControl>
           {description && (
             <FormDescription {...descriptionProps}>

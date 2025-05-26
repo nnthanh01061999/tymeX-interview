@@ -1,7 +1,7 @@
 "use client"
 
 import FormCategory from "@/app/[locale]/_components/category-toggle/form-category"
-import { useFilterForm } from "@/app/[locale]/_components/filter-form-context"
+import { useFilterForm } from "@/app/[locale]/_components/filters/filter-form-context"
 import Product from "@/app/[locale]/_components/product-card"
 import ProductSkeleton from "@/app/[locale]/_components/product-card/product-card-skeleton"
 import useProducts from "@/app/[locale]/hooks/use-search-products"
@@ -17,7 +17,7 @@ function SearchResult() {
 
   const {
     items,
-    isFetching,
+    isPending,
     isFetchingNextPage,
     isError,
     hasNextPage,
@@ -29,11 +29,11 @@ function SearchResult() {
       return <ErrorIndicator onRetry={handleReset} className="h-[50vh]" />
     }
 
-    if (!isFetching && items && items.length === 0) {
+    if (!isPending && items && items.length === 0) {
       return <EmptyIndicator onAction={handleReset} className="h-[50vh]" />
     }
 
-    if (isFetching) {
+    if (isPending) {
       return (
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -67,8 +67,8 @@ function SearchResult() {
     handleReset,
     hasNextPage,
     isError,
-    isFetching,
     isFetchingNextPage,
+    isPending,
     items
   ])
 
@@ -81,7 +81,7 @@ function SearchResult() {
           childrenProps={{ options: CATEGORY_OPTIONS }}
         />
         {renderContent()}
-        <Loading loading={isFetching} />
+        <Loading loading={isPending} />
       </div>
     </div>
   )
