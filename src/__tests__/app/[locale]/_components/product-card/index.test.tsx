@@ -12,7 +12,7 @@ import userEvent from "@testing-library/user-event"
 import { act } from "react-dom/test-utils"
 
 // Mock dependencies
-jest.mock("next/image", () => ({
+jest.mock("@/components/ui/base-image", () => ({
   __esModule: true,
   default: (props: any) => {
     // Create a modified props object to handle fill property

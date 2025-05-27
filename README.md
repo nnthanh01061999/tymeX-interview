@@ -11,6 +11,7 @@ A modern NFT marketplace built with Next.js, TypeScript, Tailwind CSS, and Shadc
 - Loading states, empty states, and error handling
 - Smart sticky components with adaptive behavior
 - Customizable UI with dark/light themes
+- Error-resilient image handling with fallback options
 
 ## Tech Stack
 
@@ -93,7 +94,6 @@ yarn test:coverage
 - `/src/__tests__`: Test files with same structure as source
 - `/src/app`: Next.js app router pages and layouts
 - `/src/components`: Reusable React components
-  - `/src/components/ui`: Shadcn UI components
 - `/src/hooks`: Custom React hooks
 - `/src/lib`: Utility functions and API services
 - `/src/types`: TypeScript type definitions

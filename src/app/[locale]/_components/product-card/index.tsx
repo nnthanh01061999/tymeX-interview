@@ -1,5 +1,6 @@
 "use client"
 
+import BaseImage from "@/components/ui/base-image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
@@ -7,7 +8,6 @@ import { IProduct } from "@/types"
 import { formatNumber } from "@/util/format"
 import { Heart } from "lucide-react"
 import { useTranslations } from "next-intl"
-import Image from "next/image"
 import { useState } from "react"
 
 interface ProductCardProps {
@@ -32,17 +32,15 @@ export default function ProductCard({ item }: ProductCardProps) {
   return (
     <Card className="h-full flex flex-col overflow-hidden">
       <div className="relative h-48">
-        <div className="relative size-full">
-          <Image
-            src={`https://picsum.photos/600/800?random=${item.imageId}`}
-            alt={item.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 20vw, 20vw"
-            className="object-cover"
-          />
-        </div>
+        <BaseImage
+          src={`https://picsum.photos/600/800?random=${item.imageId}`}
+          alt={item.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 20vw, 20vw"
+          className="object-cover"
+          containerClassName="size-full"
+        />
       </div>
-
       <CardContent className="grow p-3">
         <div className="flex flex-col">
           <h3
