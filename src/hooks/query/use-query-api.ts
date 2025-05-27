@@ -1,6 +1,6 @@
 import { apiConfig, ApiKey } from "@/configs/api"
-import { sendRequest } from "@/helpers/fetch/sendRequest"
-import { RequestConfig } from "@/helpers/fetch/type"
+import { RequestConfig } from "@/helpers/fetch/fetch.type"
+import { sendRequest } from "@/helpers/fetch/send-request"
 import { injectVariablesToPath } from "@/helpers/fetch/util"
 import { toast } from "@/hooks/use-toast"
 import { useQuery, UseQueryOptions } from "@tanstack/react-query"

@@ -1,9 +1,8 @@
+import ClientProvider from "@/components/contexts/ClientProvider"
 import HydrationProvider from "@/components/contexts/HydrationContext"
 import FloatAction from "@/components/layout/float-action"
-import { ThemeProvider } from "@/components/theme/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { routing } from "@/i18n/routing"
-import { QueryClientProvider } from "@/lib/react-query"
 import type { Metadata, Viewport } from "next"
 import { hasLocale, NextIntlClientProvider } from "next-intl"
 import { getTranslations } from "next-intl/server"
@@ -107,13 +106,11 @@ export default async function RootLayout({
         suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <HydrationProvider userAgent={userAgent}>
-            <ThemeProvider>
-              <QueryClientProvider>
-                {children}
-                <Toaster />
-                <FloatAction />
-              </QueryClientProvider>
-            </ThemeProvider>
+            <ClientProvider>
+              {children}
+              <Toaster />
+              <FloatAction />
+            </ClientProvider>
           </HydrationProvider>
         </NextIntlClientProvider>
       </body>

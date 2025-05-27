@@ -83,7 +83,9 @@ export default function FilterForm({ children }: PropsWithChildren) {
   )
 
   useEffect(() => {
-    if (!isDesktop) return
+    const { category } = formValues
+    const currentCategory = params.category
+    if (!isDesktop && category !== currentCategory) return
     handleFilter(formValues)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(formValues), handleFilter, isDesktop])

@@ -13,11 +13,11 @@ import {
 import { FormWrapperProps } from "@/types/form"
 import { FieldValues } from "react-hook-form"
 
-type TFormSliderProps<T extends FieldValues> = FormWrapperProps<T> & {
+type TFormRangeProps<T extends FieldValues> = FormWrapperProps<T> & {
   childrenProps?: SliderDebounceProps
 }
 
-function FormSlider<T extends FieldValues>({
+function FormRange<T extends FieldValues>({
   form,
   name,
   label,
@@ -27,7 +27,7 @@ function FormSlider<T extends FieldValues>({
   descriptionProps,
   messageProps,
   childrenProps
-}: TFormSliderProps<T>) {
+}: TFormRangeProps<T>) {
   return (
     <FormField
       control={form.control}
@@ -79,4 +79,4 @@ function FormSlider<T extends FieldValues>({
   )
 }
 
-export default FormSlider
+export default FormRange

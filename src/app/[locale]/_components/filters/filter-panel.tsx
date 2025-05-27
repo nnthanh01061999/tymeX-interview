@@ -2,8 +2,8 @@
 
 import { useFilterForm } from "@/app/[locale]/_components/filters/filter-form-context"
 import FormInputDebounce from "@/components/form/form-input-debounce"
+import FormRange from "@/components/form/form-range"
 import FormSelect from "@/components/form/form-select"
-import FormSlider from "@/components/form/form-slider"
 import { Button } from "@/components/ui/button"
 import { THEME_OPTIONS, TIER_OPTIONS } from "@/constants"
 import { useTranslations } from "next-intl"
@@ -31,7 +31,7 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
           }}
         />
 
-        <FormSlider
+        <FormRange
           form={form}
           name="price"
           label={t("price")}

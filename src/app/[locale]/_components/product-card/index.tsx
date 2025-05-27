@@ -11,12 +11,12 @@ import Image from "next/image"
 import { useState } from "react"
 
 interface ProductCardProps {
-  item: IProduct
+  item?: IProduct
 }
 
 export default function ProductCard({ item }: ProductCardProps) {
   const t = useTranslations("product.favorite")
-  const [isFavorite, setIsFavorite] = useState(item.isFavorite || false)
+  const [isFavorite, setIsFavorite] = useState(item?.isFavorite || false)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleFavoriteToggle = async () => {

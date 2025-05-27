@@ -1,4 +1,4 @@
-import ImageRandom from "@/app/[locale]/_components/ImageRandom"
+import ImageRandom from "@/app/[locale]/_components/image-random"
 
 function Featured() {
   return (

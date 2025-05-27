@@ -1,4 +1,4 @@
-import { RequestType, ResponseError } from "./type"
+import { RequestType, ResponseError } from "./fetch.type"
 import { createRequest, HttpStatusCode } from "./util"
 
 //Place holder for get token user

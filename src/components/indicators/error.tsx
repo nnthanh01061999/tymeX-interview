@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useMemo } from "react"
 
-interface ErrorIndicatorProps {
+interface ErrorProps {
   title?: string
   description?: string
   actionLabel?: string
@@ -11,13 +11,13 @@ interface ErrorIndicatorProps {
   className?: string
 }
 
-export default function ErrorIndicator({
+export default function Error({
   title,
   description,
   actionLabel,
   onRetry,
   className
-}: ErrorIndicatorProps) {
+}: ErrorProps) {
   const t = useTranslations("error")
 
   const data = useMemo(

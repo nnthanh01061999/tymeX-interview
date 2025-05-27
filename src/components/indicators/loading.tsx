@@ -21,14 +21,21 @@ function Loading({ loading }: TLoadingProps) {
 
   return (
     <div
+      data-testid="loading-overlay"
       className={cn(
         "fixed inset-0 flex items-center justify-center bg-background/50 transition-opacity duration-300",
         show
           ? "opacity-100 pointer-events-auto z-50"
           : "opacity-0 pointer-events-none z-[-1]"
       )}>
-      <div className="relative w-20 h-20 flex items-center justify-center">
-        <Loader2 className="size-6 animate-spin" />
+      <div
+        data-testid="loading-container"
+        className="relative w-20 h-20 flex items-center justify-center">
+        <Loader2
+          data-testid="loading-spinner"
+          role="status"
+          className="size-6 animate-spin"
+        />
       </div>
     </div>
   )

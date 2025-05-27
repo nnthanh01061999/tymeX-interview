@@ -1,4 +1,4 @@
-import { RequestConfig } from "@/helpers/fetch/type"
+import { RequestConfig } from "@/helpers/fetch/fetch.type"
 
 import product from "./product"
 

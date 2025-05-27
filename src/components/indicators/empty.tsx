@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useMemo } from "react"
 
-interface EmptyIndicatorProps {
+interface EmptyProps {
   title?: string
   description?: string
   actionLabel?: string
@@ -11,13 +11,13 @@ interface EmptyIndicatorProps {
   className?: string
 }
 
-export default function EmptyIndicator({
+export default function Empty({
   title,
   description,
   actionLabel,
   onAction,
   className
-}: EmptyIndicatorProps) {
+}: EmptyProps) {
   const t = useTranslations("empty")
 
   const data = useMemo(

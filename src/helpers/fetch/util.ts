@@ -6,7 +6,7 @@ import {
   ResponseData,
   ResponseType,
   SubscriberItemType
-} from "./type"
+} from "./fetch.type"
 
 export const HttpStatusCode = {
   OK: 200,

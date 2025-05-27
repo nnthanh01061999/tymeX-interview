@@ -1,6 +1,6 @@
 import { apiConfig } from "@/configs/api"
-import { sendRequest } from "@/helpers/fetch/sendRequest"
-import { RequestConfig, ResponseError } from "@/helpers/fetch/type"
+import { RequestConfig, ResponseError } from "@/helpers/fetch/fetch.type"
+import { sendRequest } from "@/helpers/fetch/send-request"
 import { injectVariablesToPath } from "@/helpers/fetch/util"
 import { toast } from "@/hooks/use-toast"
 import { DeepPartial } from "@/types"
