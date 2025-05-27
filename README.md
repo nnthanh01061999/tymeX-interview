@@ -28,7 +28,9 @@ A modern NFT marketplace built with Next.js, TypeScript, Tailwind CSS, and Shadc
 - Node.js 18.17.0 or later
 - npm or yarn
 
-### Installation
+## Installation
+
+### Installation Repo
 
 1. Clone the repository
 
@@ -40,22 +42,26 @@ A modern NFT marketplace built with Next.js, TypeScript, Tailwind CSS, and Shadc
 2. Install dependencies
 
    ```bash
-   npm install
+   pnpm install
    # or
    yarn install
    ```
 
-3. Run the development server
+3. Setup environment:
+
+   Create a `.env` file in the root directory of the project, then copy all key-value pairs from `env.example` into it.
+
+4. Run the development server
 
    ```bash
-   npm run dev
+   pnpm run dev
    # or
    yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Installation mock server
+### Installation Mock Server
 
 1. CD to mock/tymex-mock-server-nodejs
 
@@ -76,7 +82,7 @@ A modern NFT marketplace built with Next.js, TypeScript, Tailwind CSS, and Shadc
 Run the tests with:
 
 ```bash
-npm test
+pnpm test
 # or
 yarn test
 ```
@@ -84,9 +90,17 @@ yarn test
 For test coverage:
 
 ```bash
-npm run test:coverage
+pnpm test:coverage
 # or
 yarn test:coverage
+```
+
+For coverage report:
+
+```bash
+pnpm coverage:open
+# or
+yarn coverage:open
 ```
 
 ## Project Structure
