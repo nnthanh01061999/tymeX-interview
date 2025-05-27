@@ -31,8 +31,7 @@ function HorizontalScrollButton({
       onClick={scrollTo(direction)}
       variant="outline"
       className={cn([
-        "outline-hidden ring-0 absolute bottom-0 z-1 rounded-none",
-        "p-0",
+        "outline-hidden ring-0 h-8 md:h-9 absolute bottom-0 z-1 rounded-none p-0",
         direction === "left"
           ? "justify-start -left-px"
           : "justify-end -right-px",

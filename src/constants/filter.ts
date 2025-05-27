@@ -42,3 +42,7 @@ export const CATEGORY_OPTIONS = [
 ] satisfies Option<string, TCategory | string>[]
 
 export const CATEGORY_OPTIONS_MAP = convertArrayToObject(CATEGORY_OPTIONS)
+
+export const STICKY_IDS = {
+  FILTER_SHEET: "filter-sheet"
+}

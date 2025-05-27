@@ -19,7 +19,7 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      className="flex flex-col gap-8 justify-between md:justify-start h-full">
+      className="flex flex-col gap-8 justify-between md:justify-start h-full max-h-[calc(100vh-2rem)] overflow-y-auto pb-4">
       <div className="flex flex-col gap-8">
         <FormInputDebounce
           form={form}

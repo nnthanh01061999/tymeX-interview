@@ -137,29 +137,4 @@ describe("CategoryToggle Component", () => {
 
     expect(scrollHorizontallyToCenter).toHaveBeenCalledWith(selectedValue)
   })
-
-  // it("calls handleFilter when a value is selected on mobile", async () => {
-  //   const mockForm = { getValues: jest.fn(() => ({ q: "test" })) }
-  //   const mockHandleFilter = jest.fn()
-
-  //   const mockUseFilterForm = useFilterForm as jest.Mock
-  //   mockUseFilterForm.mockReturnValue({
-  //     form: mockForm,
-  //     handleFilter: mockHandleFilter
-  //   })
-
-  //   render(
-  //     <CategoryToggle options={mockOptions} value="" onChange={mockOnChange} />
-  //   )
-
-  //   await act(async () => {
-  //     const toggleGroup = screen.getByTestId("toggle-group")
-  //     await userEvent.click(toggleGroup)
-  //   })
-
-  //   expect(mockHandleFilter).toHaveBeenCalledWith({
-  //     q: "test",
-  //     category: "shirts"
-  //   })
-  // })
 })

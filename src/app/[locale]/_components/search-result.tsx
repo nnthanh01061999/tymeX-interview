@@ -78,11 +78,13 @@ function SearchResult() {
   return (
     <div className="md:col-span-3">
       <div className="flex flex-col gap-4">
-        <FormCategory
-          form={form}
-          name="category"
-          childrenProps={{ options: CATEGORY_OPTIONS }}
-        />
+        <div className="sticky top-0 z-10 bg-background py-2">
+          <FormCategory
+            form={form}
+            name="category"
+            childrenProps={{ options: CATEGORY_OPTIONS }}
+          />
+        </div>
         {renderContent()}
         <Loading loading={isPending} />
       </div>
