@@ -1,10 +1,5 @@
-import {
-  CATEGORY_OPTIONS_MAP,
-  DEFAULT_LIMIT,
-  DEFAULT_PAGE,
-  THEME_OPTIONS_MAP,
-  TIER_OPTIONS_MAP
-} from "@/constants/filter"
+import { getSearchProductParams } from "@/app/[locale]/util"
+import { DEFAULT_LIMIT, DEFAULT_PAGE } from "@/constants/filter"
 import useInfiniteQueryApi from "@/hooks/query/use-infinite-query-api"
 import { IProduct } from "@/types/model/product"
 import { keepPreviousData } from "@tanstack/react-query"
@@ -35,13 +30,7 @@ const useSearchProducts = () => {
       }
     },
     params: {
-      ...params,
-      tier: params.tier ? TIER_OPTIONS_MAP[params.tier]?.label : undefined,
-      theme: params.theme ? THEME_OPTIONS_MAP[params.theme]?.label : undefined,
-      category:
-        params.category && params.category !== "all"
-          ? CATEGORY_OPTIONS_MAP[params.category]?.label
-          : undefined
+      ...getSearchProductParams(params)
     },
     placeholderData: keepPreviousData
   })

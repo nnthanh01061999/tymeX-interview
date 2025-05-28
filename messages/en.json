@@ -45,6 +45,8 @@
     "tierPlaceholder": "Select Tier",
     "theme": "Theme",
     "themePlaceholder": "Select Theme",
+    "sort": "Sort",
+    "sortPlaceholder": "Select Sort",
     "reset": "Reset Filter",
     "apply": "Apply Filters"
   }

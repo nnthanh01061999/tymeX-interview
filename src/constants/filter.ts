@@ -1,5 +1,5 @@
 import { Option } from "@/types/common"
-import { TCategory, TTheme, TTier } from "@/types/model/product"
+import { TCategory, TProductParams, TTheme, TTier } from "@/types/model/product"
 import { convertArrayToObject } from "@/util/format"
 
 export const DEFAULT_PAGE = 1
@@ -46,3 +46,56 @@ export const CATEGORY_OPTIONS_MAP = convertArrayToObject(CATEGORY_OPTIONS)
 export const STICKY_IDS = {
   FILTER_SHEET: "filter-sheet"
 }
+
+export const SORT_OPTIONS = [
+  {
+    value: "price-asc",
+    label: "Price: Low to High",
+    params: {
+      _sort: "price",
+      _order: "asc"
+    }
+  },
+  {
+    value: "price_desc",
+    label: "Price: High to Low",
+    params: {
+      _sort: "price",
+      _order: "desc"
+    }
+  },
+  {
+    value: "name-asc",
+    label: "Name: A to Z",
+    params: {
+      _sort: "title",
+      _order: "asc"
+    }
+  },
+  {
+    value: "name-desc",
+    label: "Name: Z to A",
+    params: {
+      _sort: "title",
+      _order: "desc"
+    }
+  },
+  {
+    value: "created-at-asc",
+    label: "Created At: Oldest",
+    params: {
+      _sort: "createdAt",
+      _order: "asc"
+    }
+  },
+  {
+    value: "created-at-desc",
+    label: "Created At: Newest",
+    params: {
+      _sort: "createdAt",
+      _order: "desc"
+    }
+  }
+] satisfies (Option<string, string> & { params: TProductParams })[]
+
+export const SORT_OPTIONS_MAP = convertArrayToObject(SORT_OPTIONS)

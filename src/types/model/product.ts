@@ -41,4 +41,8 @@ export type TProductParams = {
   tier?: string
   price_gte?: string
   price_lte?: string
+  _sort?: keyof IProduct
+  _order?: "asc" | "desc"
+  //custom
+  sort?: string
 }

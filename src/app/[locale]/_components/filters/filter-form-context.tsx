@@ -4,7 +4,6 @@ import { getValidatedParams } from "@/app/[locale]/util"
 import { Form } from "@/components/ui/form"
 import useFilterQueryParams from "@/hooks/use-filter-query-params"
 import { useResponsive } from "@/hooks/use-responsive"
-import { TCategory, TTheme, TTier } from "@/types"
 import { isEmpty } from "@/util/lodash"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -30,28 +29,24 @@ export const useFilterForm = () => {
   return useContext(FilterFormContext)
 }
 
-export interface FilterFormValues {
-  q: string
-  tier?: TTier
-  theme?: TTheme
-  category?: TCategory
-  price: [number, number]
-}
-
 const formSchema = z.object({
   q: z.string(),
   tier: z.string(),
   theme: z.string(),
   category: z.string(),
-  price: z.array(z.number())
+  price: z.array(z.number().optional()),
+  sort: z.string()
 })
 
-const defaultValues = {
+type FilterFormValues = z.infer<typeof formSchema>
+
+const defaultValues: FilterFormValues = {
   q: "",
   tier: "",
   theme: "",
   category: "",
-  price: [undefined, undefined]
+  price: [undefined, undefined],
+  sort: ""
 }
 
 export default function FilterForm({ children }: PropsWithChildren) {
@@ -61,7 +56,7 @@ export default function FilterForm({ children }: PropsWithChildren) {
 
   const { isDesktop } = useResponsive()
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FilterFormValues>({
     defaultValues: { ...defaultValues, ...params },
     resolver: zodResolver(formSchema)
   })

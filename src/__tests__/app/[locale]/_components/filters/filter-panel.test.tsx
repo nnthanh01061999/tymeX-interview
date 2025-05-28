@@ -60,6 +60,10 @@ jest.mock("@/constants", () => ({
   THEME_OPTIONS: [
     { label: "Light", value: "light" },
     { label: "Dark", value: "dark" }
+  ],
+  SORT_OPTIONS: [
+    { label: "Price: Low to High", value: "price-asc" },
+    { label: "Price: High to Low", value: "price-desc" }
   ]
 }))
 
@@ -78,7 +82,7 @@ describe("FilterPanel Component", () => {
 
     expect(screen.getByTestId("mock-form-input")).toBeInTheDocument()
     expect(screen.getByTestId("mock-form-range")).toBeInTheDocument()
-    expect(screen.getAllByTestId("mock-form-select").length).toBe(2)
+    expect(screen.getAllByTestId("mock-form-select").length).toBe(3)
   })
 
   it("renders form inputs with correct names", () => {
@@ -96,6 +100,7 @@ describe("FilterPanel Component", () => {
     const selects = screen.getAllByTestId("mock-form-select")
     expect(selects[0]).toHaveAttribute("data-name", "tier")
     expect(selects[1]).toHaveAttribute("data-name", "theme")
+    expect(selects[2]).toHaveAttribute("data-name", "sort")
   })
 
   it("renders reset button", () => {

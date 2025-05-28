@@ -13,14 +13,32 @@ jest.mock("@/app/[locale]/_components/filters/filter-form-context", () => ({
   }))
 }))
 
-jest.mock("@/hooks/use-has-scroll", () => ({
-  __esModule: true,
-  default: jest.fn(() => ({
-    ref: { current: document.createElement("div") },
-    hasScrollLeft: true,
-    hasScrollRight: true
-  }))
-}))
+jest.mock("@/hooks/use-has-scroll", () => {
+  // Create a mock div element with scrollable properties
+  const mockDiv = document.createElement("div")
+  // Set properties to simulate scrolling
+  Object.defineProperties(mockDiv, {
+    scrollLeft: { value: 10, writable: true },
+    scrollWidth: { value: 500, writable: true },
+    clientWidth: { value: 300, writable: true }
+  })
+
+  const checkScrollMock = jest.fn()
+
+  return {
+    __esModule: true,
+    default: jest.fn(() => {
+      const ref = { current: mockDiv }
+      checkScrollMock()
+      return {
+        ref,
+        hasScrollLeft: true,
+        hasScrollRight: true,
+        checkScroll: checkScrollMock
+      }
+    })
+  }
+})
 
 jest.mock("@/hooks/use-responsive", () => ({
   useResponsive: jest.fn(() => ({
@@ -136,5 +154,13 @@ describe("CategoryToggle Component", () => {
     )
 
     expect(scrollHorizontallyToCenter).toHaveBeenCalledWith(selectedValue)
+  })
+
+  it("handles the case when no value is provided", () => {
+    render(
+      <CategoryToggle options={mockOptions} value="" onChange={mockOnChange} />
+    )
+
+    expect(scrollHorizontallyToCenter).not.toHaveBeenCalled()
   })
 })

@@ -45,6 +45,8 @@
     "tierPlaceholder": "Chọn cấp độ",
     "theme": "Chủ đề",
     "themePlaceholder": "Chọn chủ đề",
+    "sort": "Sắp xếp",
+    "sortPlaceholder": "Chọn cách sắp xếp",
     "reset": "Đặt lại bộ lọc",
     "apply": "Áp dụng bộ lọc"
   }

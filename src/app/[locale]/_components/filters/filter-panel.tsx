@@ -5,7 +5,7 @@ import FormInputDebounce from "@/components/form/form-input-debounce"
 import FormRange from "@/components/form/form-range"
 import FormSelect from "@/components/form/form-select"
 import { Button } from "@/components/ui/button"
-import { THEME_OPTIONS, TIER_OPTIONS } from "@/constants"
+import { SORT_OPTIONS, THEME_OPTIONS, TIER_OPTIONS } from "@/constants"
 import { useTranslations } from "next-intl"
 
 interface FilterPanelProps {
@@ -66,6 +66,19 @@ export default function FilterPanel({ onApply }: FilterPanelProps) {
               value: theme.value
             })),
             placeholder: t("themePlaceholder")
+          }}
+        />
+
+        <FormSelect
+          form={form}
+          name="sort"
+          label={t("sort")}
+          childrenProps={{
+            options: SORT_OPTIONS.map((sort) => ({
+              label: sort.label,
+              value: sort.value
+            })),
+            placeholder: t("sortPlaceholder")
           }}
         />
       </div>
